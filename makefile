@@ -1,3 +1,5 @@
+.PHONY: changelog.md
+
 lint:
 	uvx black --check ofmt/
 
@@ -7,9 +9,12 @@ format:
 test:
 	uv run --with pytest python -m pytest --doctest-modules ofmt/
 
-upload:
+changelog.md:
+	uvx git-cliff -o changelog.md
+
+upload: changelog.md
 	uv build
 	uv publish
 
 clean:
-	rm -rf .pytest_cache __pycache__ ofmt/__pycache__ dist/
+	rm -rf .pytest_cache __pycache__ ofmt/__pycache__ dist/ changelog.md
