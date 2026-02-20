@@ -1,6 +1,6 @@
 [project]
 name = "ofmt"
-version = "1.0.0"
+version = "1.1.0"
 description = "Omni formatter. A formatter for everything."
 requires-python = ">=3.11"
 dependencies = []
