@@ -7,5 +7,9 @@ format:
 test:
 	uv run --with pytest python -m pytest --doctest-modules ofmt/
 
+upload:
+	uv build
+	uv publish
+
 clean:
-	rm -rf .pytest_cache __pycache__ ofmt/__pycache__
+	rm -rf .pytest_cache __pycache__ ofmt/__pycache__ dist/
