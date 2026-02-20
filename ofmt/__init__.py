@@ -34,6 +34,8 @@ FORMATTERS = {
     "json": "biome",
     "jsonc": "biome",
     "md": "prettier",
+    "yaml": "prettier",
+    "yml": "prettier",
     "toml": "taplo",
     "sh": "shfmt",
     "bash": "shfmt",
