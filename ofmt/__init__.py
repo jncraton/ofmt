@@ -26,8 +26,13 @@ FORMATTERS = {
     "cpp": "clang",
     "cc": "clang",
     "js": "biome",
+    "ts": "biome",
+    "jsx": "biome",
+    "tsx": "biome",
     "html": "biome",
     "css": "biome",
+    "json": "biome",
+    "jsonc": "biome",
     "md": "prettier",
     "py": "black",
 }
