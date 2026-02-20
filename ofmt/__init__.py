@@ -32,6 +32,29 @@ FORMATTERS = {
 }
 
 
+IGNORED_DIRS = {
+    "node_modules",
+    "__pycache__",
+    ".venv",
+    "venv",
+}
+
+
+def ignored(path):
+    """
+    >>> ignored(Path('.git/config'))
+    True
+    >>> ignored(Path('node_modules/foo.js'))
+    True
+    >>> ignored(Path('src/main.py'))
+    False
+    """
+    for part in path.parts:
+        if part.startswith(".") or part in IGNORED_DIRS:
+            return True
+    return False
+
+
 def collect_files(paths):
     """
     >>> collect_files([]) == []
@@ -42,7 +65,7 @@ def collect_files(paths):
         path = Path(p)
         if path.is_dir():
             for f in path.rglob("*"):
-                if f.is_file():
+                if f.is_file() and not ignored(f):
                     result.append(f)
         else:
             result.append(path)
