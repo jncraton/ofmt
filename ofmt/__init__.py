@@ -39,6 +39,7 @@ FORMATTERS = {
     "toml": "taplo",
     "sh": "shfmt",
     "bash": "shfmt",
+    "sql": "sqlfluff",
     "py": "black",
 }
 
@@ -134,6 +135,10 @@ def run_formatter(kind, files):
             + prettier_config()
             + [str(f) for f in files],
             check=True,
+        )
+    elif kind == "sqlfluff":
+        subprocess.run(
+            [runner(), "sqlfluff", "fix"] + [str(f) for f in files], check=True
         )
     elif kind == "shfmt":
         subprocess.run([runner(), "shfmt", "-w"] + [str(f) for f in files], check=True)
