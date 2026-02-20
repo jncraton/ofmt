@@ -84,3 +84,12 @@ def test_yaml():
         result = (Path(tmp) / "example.yaml").read_text()
     assert "key: value\n" in result
     assert "other: 123\n" in result
+
+
+def test_sql():
+    with tempfile.TemporaryDirectory() as tmp:
+        shutil.copy(EXAMPLES / "example.sql", tmp)
+        run_ofmt(tmp)
+        result = (Path(tmp) / "example.sql").read_text()
+    assert "select" in result
+    assert "SELECT" not in result
