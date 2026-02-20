@@ -17,6 +17,8 @@ html | npx prettier --write {files}
 css | npx prettier --write {files}
 py | uvx black
 
+Most formatters are downloaded as needed by their respective package managers. The clang-format binary is included as part of the resources of this package and used from there automatically.
+
 ### Usage
 
 ```sh
