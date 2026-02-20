@@ -1,0 +1,9 @@
+[project]
+name = "ofmt"
+version = "0.1.0"
+description = "Omni formatter. A formatter for everything."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+ofmt = "ofmt:main"
