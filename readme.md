@@ -26,7 +26,11 @@ uvx ofmt
 extension | formatter
 ----------|-----------
 c, h, cpp, cc | clang-format
-js, html, css | prettier
+js, ts, jsx, tsx, html, css, json, jsonc | biome
+md, yaml, yml | prettier
+toml | taplo
+sh, bash | shfmt
+sql | sqlfluff
 py | black
 
 Formatters are downloaded as needed. A bundled `.prettierrc.json` is used when no project-level prettier config is found.
