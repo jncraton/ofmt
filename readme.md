@@ -33,4 +33,4 @@ sh, bash | shfmt
 sql | sqlfluff
 py | black
 
-Formatters are downloaded as needed. A bundled `.prettierrc.json` is used when no project-level prettier config is found.
+Formatters are downloaded as needed. A bundled `.prettierrc.json` is used when no project-level prettier config is found. A bundled `.sqlfluff` config enforces lowercase keywords by default; after fixing, sqlfluff lints to catch any remaining violations.
