@@ -34,6 +34,7 @@ FORMATTERS = {
     "json": "biome",
     "jsonc": "biome",
     "md": "prettier",
+    "toml": "taplo",
     "py": "black",
 }
 
@@ -130,6 +131,8 @@ def run_formatter(kind, files):
             + [str(f) for f in files],
             check=True,
         )
+    elif kind == "taplo":
+        subprocess.run([runner(), "taplo", "fmt"] + [str(f) for f in files], check=True)
     elif kind == "clang":
         subprocess.run(
             [runner(), "clang-format", "-i"] + [str(f) for f in files], check=True
