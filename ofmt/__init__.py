@@ -1,6 +1,16 @@
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+
+def runner():
+    """
+    >>> runner() in ('uvx', 'pipx')
+    True
+    """
+    return "uvx" if shutil.which("uvx") else "pipx"
+
 
 FORMATTERS = {
     "c": ("clang", ["clang-format", "-i"]),
@@ -51,14 +61,14 @@ def run_formatter(kind, files):
     if not files:
         return
     if kind == "black":
-        subprocess.run(["uvx", "black"] + [str(f) for f in files], check=True)
+        subprocess.run([runner(), "black"] + [str(f) for f in files], check=True)
     elif kind == "prettier":
         subprocess.run(
             ["npx", "prettier", "--write"] + [str(f) for f in files], check=True
         )
     elif kind == "clang":
         subprocess.run(
-            ["uvx", "clang-format", "-i"] + [str(f) for f in files], check=True
+            [runner(), "clang-format", "-i"] + [str(f) for f in files], check=True
         )
 
 
