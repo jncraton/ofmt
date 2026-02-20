@@ -57,7 +57,9 @@ def run_formatter(kind, files):
             ["npx", "prettier", "--write"] + [str(f) for f in files], check=True
         )
     elif kind == "clang":
-        subprocess.run(["clang-format", "-i"] + [str(f) for f in files], check=True)
+        subprocess.run(
+            ["uvx", "clang-format", "-i"] + [str(f) for f in files], check=True
+        )
 
 
 def main():
