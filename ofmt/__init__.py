@@ -141,7 +141,10 @@ def run_formatter(kind, files):
             [runner(), "sqlfluff", "fix"] + [str(f) for f in files], check=True
         )
     elif kind == "shfmt":
-        subprocess.run([runner(), "shfmt", "-w"] + [str(f) for f in files], check=True)
+        subprocess.run(
+            [runner(), "--from", "shfmt-py", "shfmt", "-w"] + [str(f) for f in files],
+            check=True,
+        )
     elif kind == "taplo":
         subprocess.run([runner(), "taplo", "fmt"] + [str(f) for f in files], check=True)
     elif kind == "clang":

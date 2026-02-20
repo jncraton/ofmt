@@ -7,7 +7,7 @@ format:
 	uvx black ofmt/
 
 test:
-	uv run --with pytest python -m pytest --doctest-modules ofmt/
+	uv run --with pytest python -m pytest --doctest-modules ofmt/ test_examples.py
 
 changelog.md:
 	uvx git-cliff -o changelog.md
