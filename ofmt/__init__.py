@@ -25,9 +25,10 @@ FORMATTERS = {
     "h": "clang",
     "cpp": "clang",
     "cc": "clang",
-    "js": "prettier",
-    "html": "prettier",
-    "css": "prettier",
+    "js": "biome",
+    "html": "biome",
+    "css": "biome",
+    "md": "prettier",
     "py": "black",
 }
 
@@ -76,7 +77,7 @@ def group_by_formatter(files):
     """
     >>> groups = group_by_formatter([Path('a.py'), Path('b.js')])
     >>> sorted(groups.keys())
-    ['black', 'prettier']
+    ['biome', 'black']
     """
     groups = {}
     for f in files:
@@ -103,10 +104,19 @@ def prettier_config():
     bundled = Path(__file__).parent / ".prettierrc.json"
     return ["--config", str(bundled)]
 
+
+def run_formatter(kind, files):
     if not files:
         return
     if kind == "black":
         subprocess.run([runner(), "black"] + [str(f) for f in files], check=True)
+    elif kind == "biome":
+        subprocess.run(
+            node_runner().split()
+            + ["@biomejs/biome", "format", "--write"]
+            + [str(f) for f in files],
+            check=True,
+        )
     elif kind == "prettier":
         subprocess.run(
             node_runner().split()
