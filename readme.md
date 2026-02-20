@@ -1,5 +1,8 @@
 # ofmt
 
+[![Lint](https://github.com/jncraton/ofmt/actions/workflows/lint.yml/badge.svg)](https://github.com/jncraton/ofmt/actions/workflows/lint.yml)
+[![Test](https://github.com/jncraton/ofmt/actions/workflows/test.yml/badge.svg)](https://github.com/jncraton/ofmt/actions/workflows/test.yml)
+
 Omni formatter. A formatter for everything.
 
 ## Formatters
