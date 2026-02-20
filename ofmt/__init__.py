@@ -12,15 +12,23 @@ def runner():
     return "uvx" if shutil.which("uvx") else "pipx"
 
 
+def node_runner():
+    """
+    >>> node_runner() in ('pnpm dlx', 'npx')
+    True
+    """
+    return "pnpm dlx" if shutil.which("pnpm") else "npx"
+
+
 FORMATTERS = {
-    "c": ("clang", ["clang-format", "-i"]),
-    "h": ("clang", ["clang-format", "-i"]),
-    "cpp": ("clang", ["clang-format", "-i"]),
-    "cc": ("clang", ["clang-format", "-i"]),
-    "js": ("prettier", ["npx", "prettier", "--write"]),
-    "html": ("prettier", ["npx", "prettier", "--write"]),
-    "css": ("prettier", ["npx", "prettier", "--write"]),
-    "py": ("black", None),
+    "c": "clang",
+    "h": "clang",
+    "cpp": "clang",
+    "cc": "clang",
+    "js": "prettier",
+    "html": "prettier",
+    "css": "prettier",
+    "py": "black",
 }
 
 
@@ -52,7 +60,7 @@ def group_by_formatter(files):
         ext = f.suffix.lstrip(".")
         if ext not in FORMATTERS:
             continue
-        kind, _ = FORMATTERS[ext]
+        kind = FORMATTERS[ext]
         groups.setdefault(kind, []).append(f)
     return groups
 
@@ -64,7 +72,8 @@ def run_formatter(kind, files):
         subprocess.run([runner(), "black"] + [str(f) for f in files], check=True)
     elif kind == "prettier":
         subprocess.run(
-            ["npx", "prettier", "--write"] + [str(f) for f in files], check=True
+            node_runner().split() + ["prettier", "--write"] + [str(f) for f in files],
+            check=True,
         )
     elif kind == "clang":
         subprocess.run(
