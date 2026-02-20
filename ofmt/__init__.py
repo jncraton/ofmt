@@ -116,6 +116,21 @@ def prettier_config():
     return ["--config", str(bundled)]
 
 
+def sqlfluff_config():
+    """
+    >>> isinstance(sqlfluff_config(), list)
+    True
+    """
+    for parent in Path(".").resolve().parents:
+        for name in (".sqlfluff", "setup.cfg", "tox.ini", "pep8.ini"):
+            if (parent / name).exists():
+                return []
+    if Path(".sqlfluff").exists():
+        return []
+    bundled = Path(__file__).parent / ".sqlfluff"
+    return ["--config", str(bundled)]
+
+
 def run_formatter(kind, files):
     if not files:
         return
@@ -138,7 +153,8 @@ def run_formatter(kind, files):
         )
     elif kind == "sqlfluff":
         subprocess.run(
-            [runner(), "sqlfluff", "fix"] + [str(f) for f in files], check=True
+            [runner(), "sqlfluff", "fix"] + sqlfluff_config() + [str(f) for f in files],
+            check=True,
         )
     elif kind == "shfmt":
         subprocess.run(
