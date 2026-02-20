@@ -2,6 +2,7 @@
 
 [![Lint](https://github.com/jncraton/ofmt/actions/workflows/lint.yml/badge.svg)](https://github.com/jncraton/ofmt/actions/workflows/lint.yml)
 [![Test](https://github.com/jncraton/ofmt/actions/workflows/test.yml/badge.svg)](https://github.com/jncraton/ofmt/actions/workflows/test.yml)
+[![Release](https://github.com/jncraton/ofmt/actions/workflows/release.yml/badge.svg)](https://github.com/jncraton/ofmt/actions/workflows/release.yml)
 
 Omni formatter. A formatter for everything.
 
