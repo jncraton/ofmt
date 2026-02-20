@@ -17,4 +17,4 @@ upload: changelog.md
 	uv publish
 
 clean:
-	rm -rf .pytest_cache __pycache__ ofmt/__pycache__ dist/ changelog.md
+	rm -rf .pytest_cache __pycache__ ofmt/__pycache__ dist/ changelog.md .venv .ruff_cache
