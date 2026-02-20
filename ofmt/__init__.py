@@ -88,14 +88,31 @@ def group_by_formatter(files):
     return groups
 
 
-def run_formatter(kind, files):
+def prettier_config():
+    """
+    >>> isinstance(prettier_config(), list)
+    True
+    """
+    result = subprocess.run(
+        ["npx", "prettier", "--find-config-path", "."],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode == 0 and result.stdout.strip():
+        return []
+    bundled = Path(__file__).parent / ".prettierrc.json"
+    return ["--config", str(bundled)]
+
     if not files:
         return
     if kind == "black":
         subprocess.run([runner(), "black"] + [str(f) for f in files], check=True)
     elif kind == "prettier":
         subprocess.run(
-            node_runner().split() + ["prettier", "--write"] + [str(f) for f in files],
+            node_runner().split()
+            + ["prettier", "--write"]
+            + prettier_config()
+            + [str(f) for f in files],
             check=True,
         )
     elif kind == "clang":
