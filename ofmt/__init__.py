@@ -156,6 +156,12 @@ def run_formatter(kind, files):
             [runner(), "sqlfluff", "fix"] + sqlfluff_config() + [str(f) for f in files],
             check=True,
         )
+        subprocess.run(
+            [runner(), "sqlfluff", "lint"]
+            + sqlfluff_config()
+            + [str(f) for f in files],
+            check=True,
+        )
     elif kind == "shfmt":
         subprocess.run(
             [runner(), "--from", "shfmt-py", "shfmt", "-w"] + [str(f) for f in files],
