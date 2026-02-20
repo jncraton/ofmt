@@ -106,7 +106,7 @@ def prettier_config():
     True
     """
     result = subprocess.run(
-        ["npx", "prettier", "--find-config-path", "."],
+        ["npx", "prettier@3.6.2", "--find-config-path", "."],
         capture_output=True,
         text=True,
     )
@@ -135,43 +135,51 @@ def run_formatter(kind, files):
     if not files:
         return
     if kind == "black":
-        subprocess.run([runner(), "black"] + [str(f) for f in files], check=True)
+        subprocess.run(
+            [runner(), "black==26.1.0"] + [str(f) for f in files], check=True
+        )
     elif kind == "biome":
         subprocess.run(
             node_runner().split()
-            + ["@biomejs/biome", "format", "--write"]
+            + ["@biomejs/biome@2.4.3", "format", "--write"]
             + [str(f) for f in files],
             check=True,
         )
     elif kind == "prettier":
         subprocess.run(
             node_runner().split()
-            + ["prettier", "--write"]
+            + ["prettier@3.6.2", "--write"]
             + prettier_config()
             + [str(f) for f in files],
             check=True,
         )
     elif kind == "sqlfluff":
         subprocess.run(
-            [runner(), "sqlfluff", "fix"] + sqlfluff_config() + [str(f) for f in files],
+            [runner(), "sqlfluff==4.0.4", "fix"]
+            + sqlfluff_config()
+            + [str(f) for f in files],
             check=True,
         )
         subprocess.run(
-            [runner(), "sqlfluff", "lint"]
+            [runner(), "sqlfluff==4.0.4", "lint"]
             + sqlfluff_config()
             + [str(f) for f in files],
             check=True,
         )
     elif kind == "shfmt":
         subprocess.run(
-            [runner(), "--from", "shfmt-py", "shfmt", "-w"] + [str(f) for f in files],
+            [runner(), "--from", "shfmt-py==3.12.0.2", "shfmt", "-w"]
+            + [str(f) for f in files],
             check=True,
         )
     elif kind == "taplo":
-        subprocess.run([runner(), "taplo", "fmt"] + [str(f) for f in files], check=True)
+        subprocess.run(
+            [runner(), "taplo==0.9.3", "fmt"] + [str(f) for f in files], check=True
+        )
     elif kind == "clang":
         subprocess.run(
-            [runner(), "clang-format", "-i"] + [str(f) for f in files], check=True
+            [runner(), "clang-format==21.1.8", "-i"] + [str(f) for f in files],
+            check=True,
         )
 
 
